@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>LifeTag – Emergency Medical Info</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- FONT -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #8b0000, #2b0000);
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+
+    .card {
+      max-width: 900px;
+      margin: auto;
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 30px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+    }
+
+    h1 {
+      text-align: center;
+      color: #8b0000;
+      margin-bottom: 5px;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 14px;
+      color: #777;
+      margin-bottom: 25px;
+    }
+
+    .section {
+      margin-bottom: 25px;
+      padding: 20px;
+      border-radius: 14px;
+      background: #f9f9f9;
+    }
+
+    .section h2 {
+      margin-top: 0;
+      color: #8b0000;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .item {
+      background: #fff;
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid #eee;
+    }
+
+    .label {
+      font-size: 12px;
+      color: #777;
+    }
+
+    .value {
+      font-size: 16px;
+      font-weight: 600;
+      color: #222;
+    }
+
+    .alert {
+      background: #ffe6e6;
+      border: 1px solid #ffb3b3;
+    }
+
+    .ok {
+      background: #e6fff0;
+      border: 1px solid #b3ffd9;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: #888;
+      margin-top: 20px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #8b0000;
+      color: white;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+
+    <h1>🚑 LifeTag Emergency</h1>
+    <div class="subtitle">Informations médicales essentielles – accès urgence uniquement</div>
+
+    <div class="badge">⚠️ EMERGENCY USE ONLY</div>
+
+    <!-- IDENTITÉ -->
+    <div class="section">
+      <h2>👤 Identité</h2>
+      <div class="grid">
+        <div class="item">
+          <div class="label">Nom complet</div>
+          <div class="value"><?= data.fullname ?></div>
+        </div>
+        <div class="item">
+          <div class="label">Date de naissance</div>
+          <div class="value"><?= data.birthdate ?></div>
+        </div>
+        <div class="item">
+          <div class="label">Genre</div>
+          <div class="value"><?= data.gender ?></div>
+        </div>
+        <div class="item">
+          <div class="label">Ville</div>
+          <div class="value"><?= data.city ?></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SANG -->
+    <div class="section alert">
+      <h2>🩸 Groupe sanguin</h2>
+      <div class="value"><?= data.blood ?></div>
+    </div>
+
+    <!-- ALLERGIES -->
+    <div class="section <?= data.has_allergy === 'Oui' ? 'alert' : 'ok' ?>">
+      <h2>🤧 Allergies</h2>
+      <? if (data.has_allergy === 'Oui') { ?>
+        <p><strong>Type :</strong> <?= data.allergy_type ?></p>
+        <p><strong>Détails :</strong> <?= data.allergy_details ?></p>
+      <? } else { ?>
+        <p>✅ Aucune allergie déclarée</p>
+      <? } ?>
+    </div>
+
+    <!-- HANDICAP -->
+    <div class="section <?= data.has_handicap === 'Oui' ? 'alert' : 'ok' ?>">
+      <h2>♿ Handicap</h2>
+      <? if (data.has_handicap === 'Oui') { ?>
+        <p><strong>Type :</strong> <?= data.handicap_type ?></p>
+        <p><strong>Détails :</strong> <?= data.handicap_details ?></p>
+      <? } else { ?>
+        <p>✅ Aucun handicap déclaré</p>
+      <? } ?>
+    </div>
+
+    <!-- NOTES MEDICALES -->
+    <div class="section">
+      <h2>📋 Notes médicales</h2>
+      <p><?= data.medical_notes ?></p>
+    </div>
+
+    <!-- CONTACTS URGENCE -->
+    <div class="item">
+  <div class="label">Contact d’urgence 1</div>
+  <div class="value"><?= data.c1_name ?> (<?= data.c1_relation ?>)</div>
+  <a href="tel:<?= data.c1_phone ?>" 
+     style="
+       display:inline-block;
+       margin-top:8px;
+       background:#8b0000;
+       color:white;
+       padding:10px 16px;
+       border-radius:10px;
+       text-decoration:none;
+       font-weight:600;
+     ">
+     📞 Appeler maintenant
+  </a>
+</div>
+<div class="item">
+  <div class="label">Contact d’urgence 2</div>
+  <div class="value"><?= data.c2_name ?> (<?= data.c2_relation ?>)</div>
+  <a href="tel:<?= data.c2_phone ?>" 
+     style="
+       display:inline-block;
+       margin-top:8px;
+       background:#444;
+       color:white;
+       padding:10px 16px;
+       border-radius:10px;
+       text-decoration:none;
+       font-weight:600;
+     ">
+     📞 Appeler maintenant
+  </a>
+</div>

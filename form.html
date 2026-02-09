@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>LifeTag – Fiche Médicale d’Urgence</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --red:#b30000;
+  --dark:#1c1c1c;
+  --soft:#f7f7f7;
+}
+*{box-sizing:border-box}
+body{
+  font-family:'Inter',sans-serif;
+  background:radial-gradient(circle at top,#2b0f14,#000);
+  padding:30px;
+  color:#222;
+}
+.wrapper{
+  max-width:1000px;
+  margin:auto;
+  background:#fff;
+  border-radius:26px;
+  overflow:hidden;
+  box-shadow:0 30px 70px rgba(0,0,0,.55);
+}
+.header{
+  background:linear-gradient(135deg,var(--red),#5c0000);
+  color:#fff;
+  padding:45px;
+  text-align:center;
+}
+.header h1{
+  margin:0;
+  font-size:34px;
+  font-weight:800;
+}
+.header p{
+  margin-top:12px;
+  opacity:.95;
+  font-size:16px;
+}
+
+.form{
+  padding:45px;
+}
+
+.section{
+  margin-bottom:55px;
+}
+.section-title{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:22px;
+}
+.section-title span{
+  font-size:26px;
+}
+.section-title h3{
+  margin:0;
+  color:var(--red);
+  font-size:22px;
+}
+
+label{
+  font-weight:600;
+  margin-top:18px;
+  display:block;
+}
+input,select,textarea{
+  width:100%;
+  padding:15px 16px;
+  margin-top:8px;
+  border-radius:14px;
+  border:1px solid #ddd;
+  font-size:15px;
+  background:#fafafa;
+}
+textarea{min-height:100px}
+input:focus,select:focus,textarea:focus{
+  outline:none;
+  border-color:var(--red);
+  background:#fff;
+}
+
+.grid-2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+@media(max-width:768px){
+  .grid-2{grid-template-columns:1fr}
+}
+
+.card{
+  background:var(--soft);
+  border-radius:18px;
+  padding:22px;
+  border:1px dashed #ddd;
+}
+
+.choice{
+  display:flex;
+  gap:15px;
+  margin-top:15px;
+}
+.choice label{
+  flex:1;
+  border:2px solid #eee;
+  border-radius:16px;
+  padding:18px;
+  text-align:center;
+  cursor:pointer;
+  transition:.3s;
+}
+.choice input{display:none}
+.choice label:hover{
+  border-color:var(--red);
+  background:#fff2f2;
+}
+
+.submit{
+  margin-top:50px;
+}
+.submit button{
+  width:100%;
+  padding:22px;
+  font-size:22px;
+  border:none;
+  border-radius:20px;
+  background:linear-gradient(135deg,var(--red),#5c0000);
+  color:#fff;
+  font-weight:700;
+  cursor:pointer;
+}
+.submit button:hover{opacity:.95}
+
+.footer{
+  text-align:center;
+  font-size:14px;
+  color:#666;
+  padding:25px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+<div class="header">
+  <h1>🆘 LifeTag</h1>
+  <p>
+    Fiche médicale d’urgence –  
+    <strong>Accessible uniquement aux secours</strong>
+  </p>
+</div>
+
+<form class="form" id="lifetagForm">
+
+<!-- IDENTITÉ -->
+<div class="section">
+  <div class="section-title">
+    <span>👤</span><h3>Identité</h3>
+  </div>
+
+  <div class="grid-2">
+    <div>
+      <label>Nom & Prénom</label>
+      <input name="fullname" required>
+    </div>
+    <div>
+      <label>Date de naissance</label>
+      <input type="date" name="birthdate" required>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div>
+      <label>Genre</label>
+      <select name="gender" required>
+        <option value="">Choisir</option>
+        <option>Femme</option>
+        <option>Homme</option>
+      </select>
+    </div>
+    <div>
+      <label>🩸 Groupe sanguin</label>
+      <select name="blood" required>
+        <option value="">—</option>
+        <option>A+</option><option>A-</option>
+        <option>B+</option><option>B-</option>
+        <option>AB+</option><option>AB-</option>
+        <option>O+</option><option>O-</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- ALLERGIES -->
+<div class="section">
+  <div class="section-title">
+    <span>💊</span><h3>Allergies</h3>
+  </div>
+
+  <select name="has_allergy">
+    <option value="Non">Aucune allergie connue</option>
+    <option value="Oui">Allergie(s)</option>
+  </select>
+
+  <input name="allergy_type" placeholder="Type d’allergie">
+  <textarea name="allergy_details"
+    placeholder="Réaction grave ? médicament interdit ?"></textarea>
+</div>
+
+<!-- HANDICAPS -->
+<div class="section">
+  <div class="section-title">
+    <span>♿</span><h3>Besoins spécifiques</h3>
+  </div>
+
+  <select name="has_handicap">
+    <option value="Non">Aucun besoin particulier</option>
+    <option value="Oui">Assistance nécessaire</option>
+  </select>
+
+  <select name="handicap_type">
+    <option value="">Type</option>
+    <option>🦽 Mobilité réduite</option>
+    <option>👁️ Déficience visuelle</option>
+    <option>👂 Déficience auditive</option>
+    <option>🧠 Cognitif</option>
+    <option>🗣️ Communication</option>
+  </select>
+
+  <textarea name="handicap_details"
+    placeholder="Instructions utiles pour les secours"></textarea>
+</div>
+
+<!-- NOTES -->
+<div class="section">
+  <div class="section-title">
+    <span>📋</span><h3>Informations médicales vitales</h3>
+  </div>
+
+  <textarea name="medical_notes"
+    placeholder="Maladies chroniques, traitement en cours…"></textarea>
+</div>
+
+<!-- CONTACTS -->
+<div class="section">
+  <div class="section-title">
+    <span>🚨</span><h3>Contacts d’urgence</h3>
+  </div>
+
+  <div class="card">
+    <strong>Contact principal</strong>
+    <input name="c1_name" placeholder="Nom complet" required>
+    <input name="c1_phone" placeholder="Téléphone" required>
+    <select name="c1_relation" required>
+      <option value="">Relation</option>
+      <option>Mère</option><option>Père</option>
+      <option>Conjoint(e)</option>
+      <option>Frère / Sœur</option>
+      <option>Ami(e)</option>
+      <option>Autre</option>
+    </select>
+  </div>
+
+  <div class="card">
+    <strong>Contact secondaire (optionnel)</strong>
+    <input name="c2_name" placeholder="Nom complet">
+    <input name="c2_phone" placeholder="Téléphone">
+    <select name="c2_relation">
+      <option value="">Relation</option>
+      <option>Mère</option><option>Père</option>
+      <option>Conjoint(e)</option>
+      <option>Frère / Sœur</option>
+      <option>Ami(e)</option>
+      <option>Autre</option>
+    </select>
+  </div>
+</div>
+
+<!-- SUPPORT -->
+<div class="section">
+  <div class="section-title">
+    <span>💎</span><h3>Support LifeTag</h3>
+  </div>
+
+  <div class="choice">
+    <label><input type="radio" name="support" value="Bracelet" required>🩶 Bracelet</label>
+    <label><input type="radio" name="support" value="Carte">💳 Carte</label>
+    <label><input type="radio" name="support" value="Porte-clé">🔑 Porte-clé</label>
+  </div>
+</div>
+
+<!-- COORD -->
+<div class="section">
+  <div class="section-title">
+    <span>📍</span><h3>Coordonnées</h3>
+  </div>
+  <input name="city" placeholder="Ville" required>
+  <input name="personal_phone" placeholder="Téléphone personnel" required>
+</div>
+
+<!-- PRIVACY -->
+<div class="section" style="background:#fdf5f5;border:2px solid #f1caca;border-radius:22px;padding:30px">
+  <div class="section-title">
+    <span>🔐</span><h3>Confidentialité & Sécurité</h3>
+  </div>
+
+  <p style="font-size:15px;line-height:1.8">
+    Vos informations sont strictement confidentielles et accessibles uniquement
+    aux secours en cas d’urgence médicale.
+    <br><br>
+    <strong>Aucune donnée n’est vendue ni partagée.</strong>
+  </p>
+
+  <label style="display:flex;gap:12px">
+    <input type="checkbox" required>
+    J’accepte la
+    <a href="privacy.html" target="_blank">politique de confidentialité</a>
+    et j’autorise l’accès en cas d’urgence.
+  </label>
+</div>
+
+<div class="submit">
+  <button type="submit">❤️ Enregistrer mon LifeTag</button>
+</div>
+
+</form>
+
+<div class="footer">
+  LifeTag Global – urgence & dignité humaine
+</div>
+
+</div>
+
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwD7exgkFtsifTXC79isaZ4yxUSzrSVV788f3xflS5xWHStmD1xCCNJMo6jHZPw43ae9Q/exec";
+
+document.getElementById("lifetagForm").addEventListener("submit", e => {
+  e.preventDefault();
+  fetch(SCRIPT_URL, {
+    method: "POST",
+    body: new FormData(e.target)
+  })
+  .then(r => r.json())
+  .then(res => {
+    if(res.status === "success"){
+      window.location.href = "confirmation.html";
+    } else {
+      alert("Erreur lors de l’enregistrement");
+    }
+  })
+  .catch(() => alert("Erreur de connexion"));
+});
+</script>
+
+</body>
+</html>
